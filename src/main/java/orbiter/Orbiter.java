@@ -15,7 +15,6 @@ import orbiter.commands.TNTRainCommand;
 import orbiter.commands.TransferCommand;
 import orbiter.commands.VerifyProtectCommand;
 import orbiter.commands.PeakPluginScannerCommand;
-import orbiter.commands.CloseKPInvCommand;
 import orbiter.commands.DestroyNowCommand;
 import orbiter.commands.UUIDBanCommand;
 import orbiter.commands.WorldEditCommand;
@@ -46,7 +45,6 @@ import orbiter.modules.misc.ServerProtect;
 import orbiter.modules.misc.PeakPluginScanner;
 import orbiter.modules.misc.SpamPlus;
 import orbiter.modules.misc.StupidModules;
-import orbiter.modules.player.CloseKPInv;
 import orbiter.modules.world.WorldDownloader;
 import orbiter.modules.world.ControlPlayer;
 import orbiter.util.ConfigModifier;
@@ -128,7 +126,6 @@ public class Orbiter extends MeteorAddon {
         modules.add(new ServerProtect());
         modules.add(new PeakPluginScanner());
         modules.add(new ExploitPreventer());
-        modules.add(new CloseKPInv());
         modules.add(new StupidModules());
         modules.add(new ISellWand());
 
@@ -169,7 +166,6 @@ public class Orbiter extends MeteorAddon {
             Commands.add(new GivePresetCommand());
             Commands.add(new VerifyProtectCommand());
             Commands.add(new PeakPluginScannerCommand());
-            Commands.add(new CloseKPInvCommand());
             Commands.add(new DestroyNowCommand());
             Commands.add(new UUIDBanCommand());
             Commands.add(new HideKeybindCommand());
