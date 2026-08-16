@@ -51,7 +51,6 @@ import orbiter.modules.misc.ExploitPreventer;
 import orbiter.modules.misc.ServerProtect;
 import orbiter.modules.misc.PeakPluginScanner;
 import orbiter.modules.misc.SpamPlus;
-import orbiter.modules.misc.StupidModules;
 import orbiter.modules.world.WorldDownloader;
 import orbiter.modules.world.ControlPlayer;
 import orbiter.util.ConfigModifier;
@@ -125,7 +124,6 @@ public class Orbiter extends MeteorAddon {
         modules.add(new AutoClutch());
         modules.add(new AutoFarming());
         modules.add(new Restock());
-        modules.add(new AutoBuild());
         modules.add(new LeaveMessage());
         modules.add(new SpamPlus());
         modules.add(new ItemStealer());
@@ -133,7 +131,6 @@ public class Orbiter extends MeteorAddon {
         modules.add(new ServerProtect());
         modules.add(new PeakPluginScanner());
         modules.add(new ExploitPreventer());
-        modules.add(new StupidModules());
         modules.add(new ISellWand());
 
         modules.add(new ItemGenerator());
