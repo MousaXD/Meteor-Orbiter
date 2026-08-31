@@ -10,7 +10,7 @@ import java.net.SocketAddress;
 public class ServerRealIpHud extends BaseServerInfoHud {
     public static final HudElementInfo<ServerRealIpHud> INFO = new HudElementInfo<>(
         Orbiter.HUD_GROUP, "server-real-ip",
-        "Shows the real IP address of the connection.",
+        "Shows the resolved remote connection address. On proxied networks this may be the proxy, not the backend server.",
         ServerRealIpHud::new
     );
 
@@ -26,8 +26,8 @@ public class ServerRealIpHud extends BaseServerInfoHud {
         SocketAddress address = mc.getConnection().getConnection().getRemoteAddress();
         if (address instanceof InetSocketAddress inet) {
             String host = inet.getAddress() != null ? inet.getAddress().getHostAddress() : inet.getHostString();
-            return "Real IP: " + host;
+            return "Remote IP: " + host;
         }
-        return "Real IP: " + address;
+        return "Remote IP: " + address;
     }
 }
