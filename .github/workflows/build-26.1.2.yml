@@ -2,9 +2,9 @@ name: Build 26.1.2
 
 on:
   push:
-    branches: ["26.1.2"]
+    branches: ["26.1.2", "main"]
   pull_request:
-    branches: ["26.1.2"]
+    branches: ["26.1.2", "main"]
   workflow_dispatch:
 
 permissions:
