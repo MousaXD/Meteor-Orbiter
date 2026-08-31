@@ -20,8 +20,8 @@ import orbiter.util.ServerCapabilities;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -129,7 +129,7 @@ public class ServerMonitor extends Module {
     private int detectedPlugins;
     private ServerCapabilities capabilities;
 
-    private final Set<UUID> knownPlayers = new HashSet<>();
+    private final Map<UUID, String> knownPlayers = new HashMap<>();
 
     public ServerMonitor() {
         super(Orbiter.CATEGORY, "server-monitor",
@@ -235,27 +235,28 @@ public class ServerMonitor extends Module {
     }
 
     private void updatePlayerSnapshot(ClientPacketListener connection, boolean baseline) {
-        Set<UUID> current = new HashSet<>();
+        Map<UUID, String> current = new HashMap<>();
 
-        for (PlayerInfo info : connection.getOnlinePlayers()) {
-            if (info.getProfile() == null || info.getProfile().id() == null) continue;
-            UUID id = info.getProfile().id();
-            current.add(id);
+        for (PlayerInfo playerInfo : connection.getOnlinePlayers()) {
+            if (playerInfo.getProfile() == null || playerInfo.getProfile().id() == null) continue;
+            UUID id = playerInfo.getProfile().id();
+            String name = playerInfo.getProfile().name();
+            String label = name == null || name.isBlank() ? id.toString() : name;
+            current.put(id, label);
 
-            if (!baseline && playerChangeAlerts.get() && !knownPlayers.contains(id)) {
-                String name = info.getProfile().name();
-                info("Player joined: " + (name == null || name.isBlank() ? id : name));
+            if (!baseline && playerChangeAlerts.get() && !knownPlayers.containsKey(id)) {
+                info("Player joined: " + label);
             }
         }
 
         if (!baseline && playerChangeAlerts.get()) {
-            for (UUID id : knownPlayers) {
-                if (!current.contains(id)) info("Player left: " + id);
+            for (Map.Entry<UUID, String> previous : knownPlayers.entrySet()) {
+                if (!current.containsKey(previous.getKey())) info("Player left: " + previous.getValue());
             }
         }
 
         knownPlayers.clear();
-        knownPlayers.addAll(current);
+        knownPlayers.putAll(current);
     }
 
     private void updateAlerts() {
