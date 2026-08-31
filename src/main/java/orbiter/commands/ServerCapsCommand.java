@@ -29,7 +29,7 @@ public class ServerCapsCommand extends Command {
 
             monitor.refreshNow();
             ServerCapabilities capabilities = monitor.getCapabilities();
-            if (capabilities == null || !capabilities.authoritative()) {
+            if (capabilities == null || !capabilities.isAuthoritative()) {
                 error("The server command tree is not available yet.");
                 return SINGLE_SUCCESS;
             }
