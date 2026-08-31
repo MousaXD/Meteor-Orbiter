@@ -5,7 +5,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.util.Mth;
 import orbiter.modules.render.Camera360;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +18,7 @@ public abstract class Camera360HandMixin {
         return mod != null && mod.isActive();
     }
 
-    @WrapOperation(method = "submitHandsWithItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getXRot(F)F"))
+    @WrapOperation(method = "renderHandsWithItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getXRot(F)F"))
     private float orbiter$wrapHandTiltPitch(LocalPlayer player, float tickProgress, Operation<Float> original) {
         float pitch = original.call(player, tickProgress);
         if (!orbiter$is360Active()) return pitch;
