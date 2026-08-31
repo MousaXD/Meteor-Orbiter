@@ -801,7 +801,7 @@ public class BlockSpoof extends Module {
     private void requestWorldRendererRefresh() {
         if (mc.levelRenderer == null || mc.level == null || mc.player == null) return;
         try {
-            mc.levelRenderer.invalidateCompiledGeometry(mc.level, mc.options, mc.gameRenderer.getMainCamera(), mc.getBlockColors());
+            mc.levelRenderer.needsUpdate();
 
             if (debugPositions.get()) {
                 info("Scheduled world renderer terrain update.");
