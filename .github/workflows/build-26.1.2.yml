@@ -31,9 +31,33 @@ jobs:
           chmod +x gradlew
           ./gradlew build --stacktrace
 
+      - name: Runtime mixin smoke test
+        run: |
+          set +e
+          timeout 120s xvfb-run -a ./gradlew runClient --stacktrace > runclient.log 2>&1
+          code=$?
+          set -e
+          tail -n 250 runclient.log
+          if grep -E "MixinApplyError|MixinTransformerError|InvalidInjectionException|InjectionError|Critical injection failure" runclient.log; then
+            echo "Runtime mixin validation failed"
+            exit 1
+          fi
+          if [ "$code" -ne 0 ] && [ "$code" -ne 124 ]; then
+            echo "Minecraft client exited unexpectedly with code $code"
+            exit "$code"
+          fi
+
       - name: Upload addon jar
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: meteor-orbiter-26.1.2
           path: build/libs/*.jar
+
+      - name: Upload runtime log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: meteor-orbiter-26.1.2-runtime-log
+          path: runclient.log
+          if-no-files-found: ignore
