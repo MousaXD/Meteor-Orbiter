@@ -29,13 +29,15 @@ public class ServerStatusCommand extends Command {
                 return SINGLE_SUCCESS;
             }
 
-            info("Server Health: " + monitor.getHealth().name());
+            info("Server Health: " + monitor.getHealth().name() + " | Stability: " + monitor.getStabilityScore() + "/100");
             info("Address: " + monitor.getServerAddress() + " | Remote IP: " + monitor.getRemoteAddress());
             info("Ping: " + monitor.getCurrentPing() + " ms | Avg: " + Math.round(monitor.getAveragePing())
-                + " ms | Max: " + monitor.getMaxPing() + " ms");
+                + " ms | Jitter: " + Math.round(monitor.getPingJitter()) + " ms | Max: " + monitor.getMaxPing() + " ms");
             info("TPS: " + String.format("%.1f", monitor.getCurrentTps()) + " | Avg: "
                 + String.format("%.1f", monitor.getAverageTps()) + " | Min: "
                 + String.format("%.1f", monitor.getMinimumTps()));
+            info("Network: in " + monitor.getInboundPps() + " pps | out " + monitor.getOutboundPps()
+                + " pps | lag spikes " + monitor.getLagSpikes());
             info("Players: " + monitor.getCurrentPlayers() + " | Session peak: " + monitor.getPeakPlayers());
             info("Brand: " + monitor.getServerBrand() + " | Version: " + monitor.getServerVersion()
                 + " | Protocol: " + (monitor.getProtocolVersion() > 0 ? monitor.getProtocolVersion() : "Unknown"));
