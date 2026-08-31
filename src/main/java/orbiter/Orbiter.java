@@ -18,6 +18,7 @@ import orbiter.commands.TNTRainCommand;
 import orbiter.commands.TransferCommand;
 import orbiter.commands.VerifyProtectCommand;
 import orbiter.commands.PeakPluginScannerCommand;
+import orbiter.commands.ServerStatusCommand;
 import orbiter.commands.UUIDBanCommand;
 import orbiter.commands.WorldEditCommand;
 import orbiter.commands.HideKeybindCommand;
@@ -27,6 +28,7 @@ import orbiter.hud.NearestPlayerHud;
 import orbiter.hud.RenderDistanceHud;
 import orbiter.hud.ServerBrandHud;
 import orbiter.hud.ServerDifficultyHud;
+import orbiter.hud.ServerHealthHud;
 import orbiter.hud.ServerIpHud;
 import orbiter.hud.ServerPluginsHud;
 import orbiter.hud.ServerProtocolHud;
@@ -55,6 +57,7 @@ import orbiter.modules.combat.TridentAssist;
 import orbiter.modules.misc.ItemInfo;
 import orbiter.modules.misc.ItemStealer;
 import orbiter.modules.misc.ExploitPreventer;
+import orbiter.modules.misc.ServerMonitor;
 import orbiter.modules.misc.ServerProtect;
 import orbiter.modules.misc.PeakPluginScanner;
 import orbiter.modules.misc.SpamPlus;
@@ -79,7 +82,6 @@ import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.utils.render.DisplayItemUtils;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.slf4j.Logger;
 
@@ -142,6 +144,7 @@ public class Orbiter extends MeteorAddon {
         modules.add(new EnchCracker());
         modules.add(new ItemStealer());
         modules.add(new ItemInfo());
+        modules.add(new ServerMonitor());
         modules.add(new ServerProtect());
         modules.add(new PeakPluginScanner());
         modules.add(new ExploitPreventer());
@@ -187,6 +190,7 @@ public class Orbiter extends MeteorAddon {
             Commands.add(new GivePresetCommand());
             Commands.add(new VerifyProtectCommand());
             Commands.add(new PeakPluginScannerCommand());
+            Commands.add(new ServerStatusCommand());
             Commands.add(new UUIDBanCommand());
             Commands.add(new HideKeybindCommand());
             Commands.add(new SetPrefixCommand());
@@ -203,6 +207,7 @@ public class Orbiter extends MeteorAddon {
                 hud.register(WeaponCooldownHud.INFO);
                 hud.register(RenderDistanceHud.INFO);
                 hud.register(NearestPlayerHud.INFO);
+                hud.register(ServerHealthHud.INFO);
                 hud.register(ServerTpsHud.INFO);
                 hud.register(ServerPlayersHud.INFO);
                 hud.register(ServerRealIpHud.INFO);
@@ -237,6 +242,6 @@ public class Orbiter extends MeteorAddon {
 
     @Override
     public GithubRepo getRepo() {
-        return new GithubRepo("player19425", "Meteor-Orbiter");
+        return new GithubRepo("MousaXD", "Meteor-Orbiter");
     }
 }
