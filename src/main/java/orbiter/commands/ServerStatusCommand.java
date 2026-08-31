@@ -45,14 +45,22 @@ public class ServerStatusCommand extends Command {
 
             ServerCapabilities capabilities = monitor.getCapabilities();
             if (capabilities != null) {
-                info("Capabilities: /worldedit=" + shortState(capabilities.state("worldedit:wand"))
-                    + " /give=" + shortState(capabilities.state("give"))
-                    + " /home=" + shortState(capabilities.state("home"))
-                    + " /spawn=" + shortState(capabilities.state("spawn")));
+                info("Capabilities: WorldEdit=" + shortState(stateAny(capabilities, "worldedit", "worldedit:wand", "wand"))
+                    + " /give=" + shortState(stateAny(capabilities, "give", "minecraft:give", "essentials:give"))
+                    + " /home=" + shortState(stateAny(capabilities, "home", "essentials:home"))
+                    + " /spawn=" + shortState(stateAny(capabilities, "spawn", "essentials:spawn")));
             }
 
             return SINGLE_SUCCESS;
         });
+    }
+
+    private static ServerCapabilities.State stateAny(ServerCapabilities capabilities, String... roots) {
+        if (!capabilities.isAuthoritative()) return ServerCapabilities.State.UNKNOWN;
+        for (String root : roots) {
+            if (capabilities.has(root)) return ServerCapabilities.State.AVAILABLE;
+        }
+        return ServerCapabilities.State.UNAVAILABLE;
     }
 
     private static String shortState(ServerCapabilities.State state) {
