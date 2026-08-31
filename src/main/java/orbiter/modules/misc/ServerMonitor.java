@@ -201,8 +201,15 @@ public class ServerMonitor extends Module {
         }
         samples++;
 
-        if (connection.getServerData() != null && connection.getServerData().ip != null) {
-            serverAddress = connection.getServerData().ip;
+        var serverData = connection.getServerData();
+        if (serverData != null) {
+            if (serverData.ip != null && !serverData.ip.isBlank()) serverAddress = serverData.ip;
+            if (serverData.version != null && !serverData.version.getString().isBlank()) {
+                serverVersion = serverData.version.getString();
+            } else if (serverData.status != null && !serverData.status.getString().isBlank()) {
+                serverVersion = serverData.status.getString();
+            }
+            if (serverData.protocol > 0) protocolVersion = serverData.protocol;
         }
 
         SocketAddress remote = connection.getConnection().getRemoteAddress();
