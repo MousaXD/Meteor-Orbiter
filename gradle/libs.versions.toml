@@ -3,17 +3,17 @@ mod-version = "1.0.5"
 
 # Fabric (https://fabricmc.net/develop)
 jdk = "25"
-minecraft = "26.2"
+minecraft = "26.1.2"
 fabric-loader = "0.19.3"
 
 # Loom (https://github.com/FabricMC/fabric-loom)
 loom = "1.17.19"
 
 # Meteor (https://github.com/MeteorDevelopment/meteor-client/)
-meteor = "26.2-SNAPSHOT"
+meteor = "26.1.2-SNAPSHOT"
 
-# Fabric API (required at compile time by the 26.2 merged Minecraft jar)
-fabric-resource-loader = "2.0.13+9edec1269e"
+# Fabric API (required at compile time by the merged Minecraft jar)
+fabric-resource-loader = "2.0.10+7c44c7324c"
 
 # Mods
 
