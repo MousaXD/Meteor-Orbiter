@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -16,6 +16,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Apply 26.1.2 compatibility migration
+        run: python3 scripts/port_26_1_2_compat.py
+
+      - name: Commit migrated source
+        if: github.event_name == 'push'
+        run: |
+          if ! git diff --quiet -- src/main/java; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/main/java
+            git commit -m "port: reverse 26.2 APIs for 26.1.2"
+            git push
+          fi
 
       - name: Set up Java 25
         uses: actions/setup-java@v5
