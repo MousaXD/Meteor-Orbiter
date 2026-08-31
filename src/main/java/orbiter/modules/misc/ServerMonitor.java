@@ -160,9 +160,10 @@ public class ServerMonitor extends Module {
         sample(false);
     }
 
+    /** Refreshes instantaneous metadata for commands without modifying rolling statistics. */
     public void refreshNow() { sample(true); }
 
-    private void sample(boolean forceBaseline) {
+    private void sample(boolean manualRefresh) {
         ClientPacketListener connection = mc.getConnection();
         if (connection == null || mc.player == null) {
             online = false;
@@ -178,14 +179,16 @@ public class ServerMonitor extends Module {
         currentTps = Math.max(0.0f, Math.min(20.0f, TickRate.INSTANCE.getTickRate()));
         currentPlayers = connection.getOnlinePlayers().size();
 
-        if (samples == 0) {
+        boolean firstSample = samples == 0;
+        if (firstSample) {
             averagePing = currentPing;
             averageTps = currentTps;
             maxPing = currentPing;
             minimumTps = currentTps;
             peakPlayers = currentPlayers;
             previousPing = currentPing;
-        } else {
+            samples = 1;
+        } else if (!manualRefresh) {
             int delta = Math.abs(currentPing - previousPing);
             pingJitter = pingJitter * 0.8 + delta * 0.2;
             if (currentPing > previousPing && currentPing - previousPing >= pingSpikeDelta.get()) {
@@ -204,10 +207,9 @@ public class ServerMonitor extends Module {
             if (currentTps > 0.0f) minimumTps = minimumTps <= 0.0f ? currentTps : Math.min(minimumTps, currentTps);
             peakPlayers = Math.max(peakPlayers, currentPlayers);
             previousPing = currentPing;
+            samples++;
+            updatePacketRates(now);
         }
-        samples++;
-
-        updatePacketRates(now);
 
         var serverData = connection.getServerData();
         if (serverData != null) {
@@ -224,8 +226,8 @@ public class ServerMonitor extends Module {
 
         capabilities = ServerCapabilities.capture(connection);
         updateScannerMetadata();
-        updatePlayerSnapshot(connection, forceBaseline || samples <= 1);
-        updateAlerts();
+        updatePlayerSnapshot(connection, manualRefresh || firstSample);
+        if (!manualRefresh) updateAlerts();
     }
 
     private void updatePacketRates(long now) {
@@ -233,7 +235,7 @@ public class ServerMonitor extends Module {
         inboundPps = (int) Math.round(inboundWindow / seconds);
         outboundPps = (int) Math.round(outboundWindow / seconds);
 
-        if (samples <= 1) {
+        if (samples <= 2) {
             averageInboundPps = inboundPps;
             averageOutboundPps = outboundPps;
         } else {
