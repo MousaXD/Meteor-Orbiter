@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 public class ServerIpHud extends BaseServerInfoHud {
     public static final HudElementInfo<ServerIpHud> INFO = new HudElementInfo<>(
         Orbiter.HUD_GROUP, "server-ip",
-        "Shows the real server IP address.",
+        "Shows the configured server address. Use Server Real IP for the resolved socket address.",
         ServerIpHud::new
     );
 
@@ -22,10 +22,10 @@ public class ServerIpHud extends BaseServerInfoHud {
         if (mc.player == null) return null;
 
         PeakPluginScanner scanner = scanner();
-        String ip = scanner != null ? scanner.getServerIp() : null;
-        if (ip == null && mc.getConnection() != null && mc.getConnection().getServerData() != null) {
-            ip = mc.getConnection().getServerData().ip;
+        String address = scanner != null ? scanner.getServerIp() : null;
+        if (address == null && mc.getConnection() != null && mc.getConnection().getServerData() != null) {
+            address = mc.getConnection().getServerData().ip;
         }
-        return "IP: " + (ip != null ? ip : "Unknown");
+        return "Server: " + (address != null ? address : "Unknown");
     }
 }
