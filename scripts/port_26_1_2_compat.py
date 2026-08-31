@@ -20,6 +20,7 @@ REPLACEMENTS = [
     ("Lnet/minecraft/client/gui/Hud;extractSlot", "Lnet/minecraft/client/gui/Gui;extractSlot"),
     ("Hud hud, GuiGraphicsExtractor", "Gui gui, GuiGraphicsExtractor"),
     ("original.call(hud, extractor", "original.call(gui, extractor"),
+    ("mc.levelRenderer.invalidateCompiledGeometry(mc.level, mc.options, mc.gameRenderer.getMainCamera(), mc.getBlockColors())", "mc.levelRenderer.needsUpdate()"),
 ]
 
 changed = []
