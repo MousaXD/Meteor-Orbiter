@@ -1,0 +1,73 @@
+name: Publish 26.1.2 Release
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/release-26.1.2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Build release jar
+        run: |
+          chmod +x gradlew
+          ./gradlew build --stacktrace
+          test -f build/libs/meteor-orbiter-1.0.5-26.1.2.jar
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: v1.0.5-26.1.2
+          JAR: build/libs/meteor-orbiter-1.0.5-26.1.2.jar
+        run: |
+          cat > release-notes.md <<'EOF'
+          # Meteor Orbiter 1.0.5 for Minecraft 26.1.2
+
+          Full Minecraft 26.1.2 port of Meteor Orbiter.
+
+          Highlights:
+          - Entire addon ported to Minecraft 26.1.2 / Java 25.
+          - Runtime mixin compatibility fixes for 26.1.2 rendering APIs.
+          - Meteor search performance fix for the larger Orbiter module/settings catalog.
+          - Enchantment Cracker and `.encc` support preserved.
+          - Passive Server Monitor with ping, TPS, players, version, protocol and session telemetry.
+          - Server Network telemetry with packet rates, ping jitter, lag-spike tracking and stability score.
+          - New server HUDs and commands: `.serverstatus`, `.servernetwork`, `.servercaps`, `.servercopy`.
+          - Fork-aware updater targeting MousaXD/Meteor-Orbiter releases.
+
+          Install by placing `meteor-orbiter-1.0.5-26.1.2.jar` in your Fabric `mods` folder alongside the matching Meteor Client build.
+          EOF
+
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$JAR" --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$TAG" "$JAR" \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "Meteor Orbiter 1.0.5 - Minecraft 26.1.2" \
+              --notes-file release-notes.md
+          fi
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: meteor-orbiter-1.0.5-26.1.2
+          path: build/libs/meteor-orbiter-1.0.5-26.1.2.jar
