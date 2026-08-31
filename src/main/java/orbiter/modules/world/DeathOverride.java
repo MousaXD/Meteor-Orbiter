@@ -165,7 +165,7 @@ public class DeathOverride extends CreativeSafetyModule {
         if (!engaged) return;
 
         if (mc.player.shouldShowDeathScreen()) mc.player.setShowDeathScreen(false);
-        if (mc.gui.screen() instanceof DeathScreen) mc.gui.setScreen(null);
+        if (mc.screen instanceof DeathScreen) mc.setScreen(null);
 
         if (!dead) {
             if (respawnMode.get() == RespawnMode.Spam) release(true);

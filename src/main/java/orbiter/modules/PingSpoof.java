@@ -409,7 +409,7 @@ public class PingSpoof extends Module {
     private void onPacketSend(PacketEvent.Send event) {
         if (sendingInternally || mc.player == null || mc.getConnection() == null) return;
 
-        if (disableInInventory.get() && mc.gui.screen() != null) {
+        if (disableInInventory.get() && mc.screen != null) {
             return;
         }
 
@@ -436,7 +436,7 @@ public class PingSpoof extends Module {
         }
 
         if (disableInInventory.get()) {
-            boolean inventoryOpen = mc.gui.screen() != null;
+            boolean inventoryOpen = mc.screen != null;
             if (inventoryOpen && !wasInventoryOpen) {
                 flushAllNow();
             }
@@ -563,7 +563,7 @@ public class PingSpoof extends Module {
         if (!supportsMovementDelay() || !delayMovement.get()) return -1L;
         if (movementOnlyWhileMoving.get() && !isPlayerMoving()) return -1L;
 
-        if (disableInInventory.get() && mc.gui.screen() != null) return -1L;
+        if (disableInInventory.get() && mc.screen != null) return -1L;
 
         if (isCompetitiveMode()) {
             movementPacketCounter++;

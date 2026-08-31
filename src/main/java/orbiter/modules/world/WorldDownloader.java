@@ -303,7 +303,7 @@ public class WorldDownloader extends Module {
 
         if (detectMode.get() == DetectMode.DetectAll) {
             if (pendingDetectPos != null) {
-                if (mc.gui.screen() instanceof AbstractContainerScreen<?>) {
+                if (mc.screen instanceof AbstractContainerScreen<?>) {
                     openedContainers.add(pendingDetectPos);
                     pendingDetectPos = null;
                     detectPendingTicks = 0;
@@ -336,7 +336,7 @@ public class WorldDownloader extends Module {
 
     private void scanAndOpenNearbyContainers() {
         if (mc.player == null || mc.level == null || mc.gameMode == null) return;
-        if (mc.gui.screen() != null) return;
+        if (mc.screen != null) return;
         if (lastContainerOpenTick > 0 && mc.player.tickCount - lastContainerOpenTick < 20) return;
 
         BlockPos center = mc.player.blockPosition();
@@ -541,7 +541,7 @@ public class WorldDownloader extends Module {
     @EventHandler
     private void onTickCheckScreen(TickEvent.Pre event) {
         if (saveManager == null || !saveManager.isSaving) return;
-        Screen current = mc.gui.screen();
+        Screen current = mc.screen;
 
         if (current instanceof MerchantScreen && saveShopkeeperTrades.get()) {
             if (mc.player.containerMenu instanceof MerchantMenu merchant) {

@@ -90,7 +90,7 @@ public class Restock extends Module {
     private void onTick(TickEvent.Post event) {
         if (mc.player == null || mc.gameMode == null) return;
 
-        if (!(mc.gui.screen() instanceof AbstractContainerScreen<?> handledScreen)) return;
+        if (!(mc.screen instanceof AbstractContainerScreen<?> handledScreen)) return;
         AbstractContainerMenu handler = handledScreen.getMenu();
         if (handler == null) return;
 

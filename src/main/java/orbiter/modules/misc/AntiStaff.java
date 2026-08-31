@@ -578,8 +578,8 @@ public class AntiStaff extends Module {
             if (high) warning(message);
             else info(message);
         }
-        if (toastNotifications.get() && mc.gui.toastManager() != null) {
-            mc.gui.toastManager().addToast(new SystemToast(
+        if (toastNotifications.get() && mc.getToastManager() != null) {
+            mc.getToastManager().addToast(new SystemToast(
                 SystemToast.SystemToastId.PERIODIC_NOTIFICATION,
                 Component.literal("§c⚠ AntiStaff"),
                 Component.literal(playerName + " detected!")

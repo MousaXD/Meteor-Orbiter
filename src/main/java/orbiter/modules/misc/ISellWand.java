@@ -190,7 +190,7 @@ public class ISellWand extends Module {
             return;
         }
 
-        if (mc.gui.screen() != null) {
+        if (mc.screen != null) {
             mc.player.closeContainer();
             tickWaiter = 2;
             return;

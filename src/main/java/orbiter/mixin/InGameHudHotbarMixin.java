@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.Hud;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import orbiter.modules.ClientSideThings;
@@ -12,13 +12,13 @@ import orbiter.util.ClientSpoofState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(Hud.class)
+@Mixin(Gui.class)
 public abstract class InGameHudHotbarMixin {
     @WrapOperation(
         method = "extractItemHotbar",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Hud;extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IILnet/minecraft/client/DeltaTracker;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;I)V")
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IILnet/minecraft/client/DeltaTracker;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;I)V")
     )
-    private void orbiter$extractSlot(Hud hud, GuiGraphicsExtractor extractor, int x, int y, DeltaTracker tickCounter, Player player, ItemStack stack, int slot, Operation<Void> original) {
+    private void orbiter$extractSlot(Gui gui, GuiGraphicsExtractor extractor, int x, int y, DeltaTracker tickCounter, Player player, ItemStack stack, int slot, Operation<Void> original) {
         ItemStack render = stack;
         ClientSideThings module = ClientSpoofState.module();
         if (module != null && module.isFakeHotbarItemsEnabled()) {
@@ -32,6 +32,6 @@ public abstract class InGameHudHotbarMixin {
                 render = out;
             }
         }
-        original.call(hud, extractor, x, y, tickCounter, player, render, slot);
+        original.call(gui, extractor, x, y, tickCounter, player, render, slot);
     }
 }

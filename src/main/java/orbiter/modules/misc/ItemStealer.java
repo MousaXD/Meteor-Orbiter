@@ -275,7 +275,7 @@ public class ItemStealer extends Module {
         if (pickBlockClone.get() && pickBlockCooldown <= 0 && mc.options.keyPickItem.isDown()) {
             pickBlockCooldown = 4;
 
-            if (mc.gui.screen() instanceof AbstractContainerScreen<?>) return;
+            if (mc.screen instanceof AbstractContainerScreen<?>) return;
 
             cloneWorldItem();
         }
@@ -299,7 +299,7 @@ public class ItemStealer extends Module {
             }
         }
 
-        if (containerSnapshot.get() && mc.player != null && mc.gui.screen() instanceof AbstractContainerScreen<?> handled) {
+        if (containerSnapshot.get() && mc.player != null && mc.screen instanceof AbstractContainerScreen<?> handled) {
             String snapId = "container@" + System.identityHashCode(mc.player.containerMenu);
             if (!snapId.equals(lastContainerSnapshotId) && !(mc.player.containerMenu instanceof MerchantMenu)) {
                 lastContainerSnapshotId = snapId;
@@ -349,7 +349,7 @@ public class ItemStealer extends Module {
     }
 
     private void runAutoSteal() {
-        if (!(mc.gui.screen() instanceof AbstractContainerScreen<?> handled)) return;
+        if (!(mc.screen instanceof AbstractContainerScreen<?> handled)) return;
         if (mc.player == null || mc.player.containerMenu == null) return;
 
         AbstractContainerMenu handler = mc.player.containerMenu;
@@ -1023,7 +1023,7 @@ public class ItemStealer extends Module {
     }
 
     public boolean isInGui() {
-        return mc.gui.screen() instanceof AbstractContainerScreen<?>;
+        return mc.screen instanceof AbstractContainerScreen<?>;
     }
 
     public AbstractContainerMenu getCurrentHandler() {

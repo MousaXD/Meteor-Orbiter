@@ -1119,7 +1119,7 @@ extends Module {
         if (action.outcome == PendingOutcome.HoldContainer) {
             this.holdMode = HoldMode.Container;
             this.containerGraceTicksLeft = Math.max(1, (Integer)this.containerGraceTicks.get());
-            this.containerScreenSeen = this.mc.gui.screen() instanceof AbstractContainerScreen;
+            this.containerScreenSeen = this.mc.screen instanceof AbstractContainerScreen;
             return;
         }
         if (action.postActionHoldTicks > 0) {
@@ -1146,7 +1146,7 @@ extends Module {
             }
         }
         if (this.holdMode == HoldMode.Container) {
-            if (this.mc.gui.screen() instanceof AbstractContainerScreen) {
+            if (this.mc.screen instanceof AbstractContainerScreen) {
                 this.containerScreenSeen = true;
             } else if (!this.containerScreenSeen) {
                 if (this.containerGraceTicksLeft > 0) {

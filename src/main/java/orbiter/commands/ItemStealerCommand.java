@@ -101,7 +101,7 @@ public class ItemStealerCommand extends Command {
 
             if (!mc.player.getMainHandItem().isEmpty()) toSave = mc.player.getMainHandItem().copy();
 
-            if (toSave == null && mc.gui.screen() instanceof AbstractContainerScreen<?> handled) {
+            if (toSave == null && mc.screen instanceof AbstractContainerScreen<?> handled) {
                 Slot slot = ((HandledScreenAccessor) handled).getHoveredSlot();
                 if (slot != null && !slot.getItem().isEmpty()) toSave = slot.getItem().copy();
             }

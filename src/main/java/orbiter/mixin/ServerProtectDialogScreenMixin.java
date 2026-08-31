@@ -30,12 +30,12 @@ public abstract class ServerProtectDialogScreenMixin {
             Component.literal("Close + block dialogs for 15 min"),
             ignored -> {
                 module.suppressDialogs();
-                Minecraft.getInstance().gui.setScreen(previousScreen());
+                Minecraft.getInstance().setScreen(previousScreen());
             }
         ).width(200).build());
         layout.addToHeader(Button.builder(
             Component.literal("Close once"),
-            ignored -> Minecraft.getInstance().gui.setScreen(previousScreen())
+            ignored -> Minecraft.getInstance().setScreen(previousScreen())
         ).width(100).build());
     }
 }

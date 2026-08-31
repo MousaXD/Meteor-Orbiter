@@ -931,7 +931,7 @@ public class GivePresetItemsCommand extends Command {
         Item[] blocks = {
             Items.STONE, Items.DEEPSLATE, Items.OAK_PLANKS, Items.COBBLESTONE,
             Items.BRICKS, Items.STONE_BRICKS, Items.NETHER_BRICKS,
-            Items.GLASS, Items.STAINED_GLASS.pick(DyeColor.WHITE), Items.OBSIDIAN, Items.CRYING_OBSIDIAN,
+            Items.GLASS, Items.WHITE_STAINED_GLASS, Items.OBSIDIAN, Items.CRYING_OBSIDIAN,
             Items.GLOWSTONE, Items.SEA_LANTERN, Items.SHROOMLIGHT, Items.IRON_BLOCK,
             Items.DIAMOND_BLOCK, Items.GOLD_BLOCK, Items.EMERALD_BLOCK, Items.NETHERITE_BLOCK,
             Items.BEDROCK, Items.BARRIER, Items.STRUCTURE_VOID,

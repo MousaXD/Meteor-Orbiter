@@ -231,16 +231,16 @@ public class AutoCraftPlus extends Module {
         switch (craftState) {
             case OPEN_SCREEN -> {
                 if (useInventoryCrafting.get()) {
-                    if (!(mc.gui.screen() instanceof InventoryScreen)) {
+                    if (!(mc.screen instanceof InventoryScreen)) {
                         if (openInventoryAutomatically.get()) {
-                            mc.gui.setScreen(new InventoryScreen(mc.player));
+                            mc.setScreen(new InventoryScreen(mc.player));
                         } else {
                             return false;
                         }
                     }
                 } else {
 
-                    if (!(mc.gui.screen() instanceof CraftingScreen)) {
+                    if (!(mc.screen instanceof CraftingScreen)) {
                         info("Please open a crafting table.");
                         return false;
                     }
@@ -250,12 +250,12 @@ public class AutoCraftPlus extends Module {
             }
 
             case PLACE_INGREDIENTS -> {
-                if (!(mc.gui.screen() instanceof AbstractContainerScreen<?>)) {
+                if (!(mc.screen instanceof AbstractContainerScreen<?>)) {
                     craftState = CraftState.OPEN_SCREEN;
                     return false;
                 }
 
-                AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) mc.gui.screen();
+                AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) mc.screen;
                 int syncId = screen.getMenu().containerId;
 
                 Item[] recipe = getRecipe();
@@ -322,12 +322,12 @@ public class AutoCraftPlus extends Module {
             }
 
             case TAKE_RESULT -> {
-                if (!(mc.gui.screen() instanceof AbstractContainerScreen<?>)) {
+                if (!(mc.screen instanceof AbstractContainerScreen<?>)) {
                     craftState = CraftState.OPEN_SCREEN;
                     return false;
                 }
 
-                AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) mc.gui.screen();
+                AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) mc.screen;
                 int syncId = screen.getMenu().containerId;
                 int resultSlot = getResultSlot(screen);
 

@@ -905,8 +905,8 @@ public class AutoFind extends Module {
             case Chat -> ChatUtils.sendMsg(Component.literal(msg));
             case ActionBar -> { if (mc.player != null) mc.player.sendOverlayMessage(Component.literal(msg)); }
             case Both -> { ChatUtils.sendMsg(Component.literal(msg)); if (mc.player != null) mc.player.sendOverlayMessage(Component.literal(msg)); }
-            case Toast -> { if (mc.gui.toastManager() != null) mc.gui.toastManager().addToast(new net.minecraft.client.gui.components.toasts.SystemToast(net.minecraft.client.gui.components.toasts.SystemToast.SystemToastId.PERIODIC_NOTIFICATION, Component.literal("§6AutoFind " + result.category), Component.literal(result.criteria))); }
-            case All -> { ChatUtils.sendMsg(Component.literal(msg)); if (mc.player != null) mc.player.sendOverlayMessage(Component.literal(msg)); if (mc.gui.toastManager() != null) mc.gui.toastManager().addToast(new net.minecraft.client.gui.components.toasts.SystemToast(net.minecraft.client.gui.components.toasts.SystemToast.SystemToastId.PERIODIC_NOTIFICATION, Component.literal("§6AutoFind " + result.category), Component.literal(result.criteria))); }
+            case Toast -> { if (mc.getToastManager() != null) mc.getToastManager().addToast(new net.minecraft.client.gui.components.toasts.SystemToast(net.minecraft.client.gui.components.toasts.SystemToast.SystemToastId.PERIODIC_NOTIFICATION, Component.literal("§6AutoFind " + result.category), Component.literal(result.criteria))); }
+            case All -> { ChatUtils.sendMsg(Component.literal(msg)); if (mc.player != null) mc.player.sendOverlayMessage(Component.literal(msg)); if (mc.getToastManager() != null) mc.getToastManager().addToast(new net.minecraft.client.gui.components.toasts.SystemToast(net.minecraft.client.gui.components.toasts.SystemToast.SystemToastId.PERIODIC_NOTIFICATION, Component.literal("§6AutoFind " + result.category), Component.literal(result.criteria))); }
             case None -> {}
         }
 

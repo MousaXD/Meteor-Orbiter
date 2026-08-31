@@ -17,7 +17,6 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BowItem;
@@ -44,7 +43,7 @@ public class AimAssistPlus extends Module {
     private final Setting<Set<EntityType<?>>> entities = sgGeneral.add(new EntityTypeListSetting.Builder()
             .name("entities")
             .description("Which entities to aim at.")
-            .defaultValue(EntityTypes.PLAYER)
+            .defaultValue(EntityType.PLAYER)
             .build());
 
     private final Setting<Double> range = sgGeneral.add(new DoubleSetting.Builder()

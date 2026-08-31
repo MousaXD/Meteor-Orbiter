@@ -6,7 +6,6 @@ import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -205,18 +204,18 @@ public class UUIDBan extends Module {
         EntityType<?> type = resolveEntityType();
         ItemStack egg;
 
-        if (type != null && type != EntityTypes.ARMOR_STAND) {
+        if (type != null && type != EntityType.ARMOR_STAND) {
             Optional<Holder<Item>> eggHolder = SpawnEggItem.byId(type);
             if (eggHolder.isPresent()) {
                 egg = new ItemStack(eggHolder.get());
                 entityData.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(type).toString());
             } else {
                 egg = new ItemStack(Items.ARMOR_STAND);
-                type = EntityTypes.ARMOR_STAND;
+                type = EntityType.ARMOR_STAND;
             }
         } else {
             egg = new ItemStack(Items.ARMOR_STAND);
-            type = EntityTypes.ARMOR_STAND;
+            type = EntityType.ARMOR_STAND;
         }
 
         egg.set(DataComponents.CUSTOM_NAME, Component.literal("§c§lUUIDBan: " + name));

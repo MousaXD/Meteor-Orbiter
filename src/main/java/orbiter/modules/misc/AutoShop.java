@@ -210,7 +210,7 @@ public class AutoShop extends Module {
 
     @Override
     public void onDeactivate() {
-        if (mc.player != null && mc.gui.screen() instanceof AbstractContainerScreen<?>) mc.player.closeContainer();
+        if (mc.player != null && mc.screen instanceof AbstractContainerScreen<?>) mc.player.closeContainer();
         info("AutoShop stopped. Completed transactions: " + transactionCycles);
     }
 
@@ -368,7 +368,7 @@ public class AutoShop extends Module {
 
         if (completed) {
             transactionCycles++;
-            if (mc.gui.screen() instanceof AbstractContainerScreen<?>) mc.player.closeContainer();
+            if (mc.screen instanceof AbstractContainerScreen<?>) mc.player.closeContainer();
             tickWaiter = normalDelay.get();
             if (mode.get() == Mode.BuyAndDeposit) {
                 state = currentCount > 0 ? FIND_CHEST : WAIT_GROUND_PICKUP;
@@ -380,7 +380,7 @@ public class AutoShop extends Module {
         }
 
         if (--timeout <= 0) {
-            if (mc.gui.screen() instanceof AbstractContainerScreen<?>) mc.player.closeContainer();
+            if (mc.screen instanceof AbstractContainerScreen<?>) mc.player.closeContainer();
 
             if (getTargetItemCount() > 0) {
                 state = FIND_CHEST;
@@ -606,7 +606,7 @@ public class AutoShop extends Module {
     }
 
     private AbstractContainerScreen<?> getHandledScreen() {
-        return mc.gui.screen() instanceof AbstractContainerScreen<?> handled ? handled : null;
+        return mc.screen instanceof AbstractContainerScreen<?> handled ? handled : null;
     }
 
     private int getContainerSize(AbstractContainerScreen<?> screen) {

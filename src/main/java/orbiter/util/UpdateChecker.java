@@ -75,7 +75,7 @@ public final class UpdateChecker {
                     install(release[0], release[2]);
                 } else {
                     Minecraft.getInstance().execute(() ->
-                        Minecraft.getInstance().gui.setScreen(new orbiter.gui.UpdateAvailableScreen(
+                        Minecraft.getInstance().setScreen(new orbiter.gui.UpdateAvailableScreen(
                             GuiThemes.get(), release[0], release[1], release[2])));
                 }
             });

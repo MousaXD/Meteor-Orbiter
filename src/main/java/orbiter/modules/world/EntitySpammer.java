@@ -10,7 +10,6 @@ import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.core.BlockPos;
@@ -95,7 +94,7 @@ public class EntitySpammer extends CreativeSafetyModule {
     private final Setting<Set<EntityType<?>>> entityTypes = sgGeneral.add(new EntityTypeListSetting.Builder()
         .name("entity-type")
         .description("Entity types to spawn, animate, or dominate. Selected types are cycled.")
-        .defaultValue(EntityTypes.ZOMBIE)
+        .defaultValue(EntityType.ZOMBIE)
         .build());
 
     private final Setting<TargetMode> targetMode = sgTarget.add(new EnumSetting.Builder<TargetMode>()

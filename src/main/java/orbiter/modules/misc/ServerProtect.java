@@ -13,7 +13,6 @@ import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
@@ -838,7 +837,7 @@ public class ServerProtect extends Module {
                 return;
             }
 
-            if (type == EntityTypes.AREA_EFFECT_CLOUD) {
+            if (type == EntityType.AREA_EFFECT_CLOUD) {
                 event.cancel();
                 return;
             }
@@ -849,15 +848,15 @@ public class ServerProtect extends Module {
             }
 
             if (entityLimit.get()) {
-                if (limitTnt.get() && type == EntityTypes.TNT) {
-                    int current = entityTypeCounts.getOrDefault(EntityTypes.TNT, 0);
+                if (limitTnt.get() && type == EntityType.TNT) {
+                    int current = entityTypeCounts.getOrDefault(EntityType.TNT, 0);
                     if (current >= maxTnt.get()) { event.cancel(); return; }
                 }
             }
         }
 
         if (floorItemLimit.get() && event.packet instanceof ClientboundAddEntityPacket pkt) {
-            if (pkt.getType() == EntityTypes.ITEM) {
+            if (pkt.getType() == EntityType.ITEM) {
                 if (itemEntityCount >= maxFloorItems.get()) { event.cancel(); return; }
             }
         }
@@ -882,9 +881,9 @@ public class ServerProtect extends Module {
         if (guardTeams.get() && event.packet instanceof ClientboundSetPlayerTeamPacket pkt) {
             if (pkt.getParameters().isPresent()) {
                 ClientboundSetPlayerTeamPacket.Parameters team = pkt.getParameters().get();
-                if (isAbusiveText(team.displayName())
-                    || isAbusiveText(team.playerPrefix())
-                    || isAbusiveText(team.playerSuffix())) {
+                if (isAbusiveText(team.getDisplayName())
+                    || isAbusiveText(team.getPlayerPrefix())
+                    || isAbusiveText(team.getPlayerSuffix())) {
                     event.cancel();
                     return;
                 }
@@ -917,8 +916,8 @@ public class ServerProtect extends Module {
         }
 
         if (guardSigns.get() && event.packet instanceof ClientboundBlockEntityDataPacket pkt) {
-            if (pkt.getType() == net.minecraft.world.level.block.entity.BlockEntityTypes.SIGN
-                || pkt.getType() == net.minecraft.world.level.block.entity.BlockEntityTypes.HANGING_SIGN) {
+            if (pkt.getType() == net.minecraft.world.level.block.entity.BlockEntityType.SIGN
+                || pkt.getType() == net.minecraft.world.level.block.entity.BlockEntityType.HANGING_SIGN) {
                 CompoundTag nbt = pkt.getTag();
                 if (nbt != null && (hasMaliciousSignText(nbt, "front_text") || hasMaliciousSignText(nbt, "back_text"))) {
                     event.cancel();
@@ -1065,7 +1064,7 @@ public class ServerProtect extends Module {
             notifyProtection("Local entity limit triggered.");
         }
         if (limitTnt.get()) {
-            List<Entity> tntList = perType.getOrDefault(EntityTypes.TNT, List.of());
+            List<Entity> tntList = perType.getOrDefault(EntityType.TNT, List.of());
             int excess = tntList.size() - maxTnt.get();
             if (excess > 0) {
                 Collections.shuffle(tntList);
@@ -1209,9 +1208,9 @@ public class ServerProtect extends Module {
         var teamOpt = pkt.getParameters();
         if (teamOpt == null || teamOpt.isEmpty()) return true;
         var team = teamOpt.get();
-        if (isAbusiveText(team.displayName())) return false;
-        if (isAbusiveText(team.playerPrefix())) return false;
-        if (isAbusiveText(team.playerSuffix())) return false;
+        if (isAbusiveText(team.getDisplayName())) return false;
+        if (isAbusiveText(team.getPlayerPrefix())) return false;
+        if (isAbusiveText(team.getPlayerSuffix())) return false;
         return true;
     }
 

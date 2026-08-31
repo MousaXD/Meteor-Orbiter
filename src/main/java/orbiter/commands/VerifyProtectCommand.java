@@ -8,7 +8,6 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -175,7 +174,7 @@ public class VerifyProtectCommand extends Command {
         CompoundTag nbt = new CompoundTag();
         nbt.putDouble("AbsorptionAmount", Double.POSITIVE_INFINITY);
         nbt.putString("id", "minecraft:cave_spider");
-        TypedEntityData<EntityType<?>> data = TypedEntityData.of(EntityTypes.CAVE_SPIDER, nbt);
+        TypedEntityData<EntityType<?>> data = TypedEntityData.of(EntityType.CAVE_SPIDER, nbt);
         egg.set(DataComponents.ENTITY_DATA, data);
         return egg;
     }
@@ -201,7 +200,7 @@ public class VerifyProtectCommand extends Command {
         CompoundTag particle = new CompoundTag();
         particle.putString("type", "minecraft:elder_guardian");
         nbt.put("Particle", particle);
-        TypedEntityData<EntityType<?>> data = TypedEntityData.of(EntityTypes.CAVE_SPIDER, nbt);
+        TypedEntityData<EntityType<?>> data = TypedEntityData.of(EntityType.CAVE_SPIDER, nbt);
         egg.set(DataComponents.ENTITY_DATA, data);
 
         ItemAttributeModifiers.Builder attrs = ItemAttributeModifiers.builder();
@@ -233,7 +232,7 @@ public class VerifyProtectCommand extends Command {
         nbt.putFloat("Health", 20.0f);
         nbt.putBoolean("NoAI", true);
         nbt.putBoolean("Glowing", true);
-        egg.set(DataComponents.ENTITY_DATA, TypedEntityData.of(EntityTypes.ZOMBIE, nbt));
+        egg.set(DataComponents.ENTITY_DATA, TypedEntityData.of(EntityType.ZOMBIE, nbt));
         return egg;
     }
 

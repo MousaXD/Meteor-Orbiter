@@ -131,7 +131,7 @@ public class GivePresetCommand extends Command {
         presets.put("end-stone-64", () -> stackLore(Items.END_STONE, 64, "End Stone", ChatFormatting.YELLOW, "End dimension floor", "64 blocks of the void"));
         presets.put("crying-obsidian-64", () -> stackLore(Items.CRYING_OBSIDIAN, 64, "Crying Obsidian", ChatFormatting.DARK_PURPLE, "Weeps with ancient power", "64 blocks of sorrow"));
         presets.put("ancient-debris-64", () -> stackLore(Items.ANCIENT_DEBRIS, 64, "Ancient Debris", ChatFormatting.DARK_RED, "Rarest ore in the Nether", "64 chunks of netherite"));
-        presets.put("copper-block-64", () -> stackLore(Items.COPPER_BLOCK.weathering().unaffected(), 64, "Copper Block", ChatFormatting.RED, "Oxidizes over time", "64 blocks of copper"));
+        presets.put("copper-block-64", () -> stackLore(Items.COPPER_BLOCK, 64, "Copper Block", ChatFormatting.RED, "Oxidizes over time", "64 blocks of copper"));
         presets.put("amethyst-block-64", () -> stackLore(Items.AMETHYST_BLOCK, 64, "Amethyst Block", ChatFormatting.LIGHT_PURPLE, "Crystal resonance", "64 blocks of amethyst"));
         presets.put("tnt-64", () -> stackLore(Items.TNT, 64, "TNT Stack", ChatFormatting.RED, "Maximum destruction", "64 blocks of boom"));
         presets.put("packed-ice-64", () -> stackLore(Items.PACKED_ICE, 64, "Packed Ice", ChatFormatting.AQUA, "Slippery surface", "64 blocks of ice"));
