@@ -32,7 +32,7 @@ public final class UpdateChecker {
         .build();
 
     private static final String LATEST_URL =
-        "https://api.github.com/repos/player19425/Meteor-Orbiter/releases/latest";
+        "https://api.github.com/repos/MousaXD/Meteor-Orbiter/releases/latest";
     private static final String MOD_ID = "meteor-orbiter";
     private static final long MAX_RESPONSE_BYTES = 1024 * 1024;
     private static final long MAX_JAR_BYTES = 32L * 1024 * 1024;
@@ -106,7 +106,7 @@ public final class UpdateChecker {
 
                 Path mods = FabricLoader.getInstance().getGameDir().resolve("mods");
                 String fileName = downloadUrl.substring(downloadUrl.lastIndexOf('/') + 1);
-                if (!fileName.endsWith(".jar")) fileName = "meteor-orbiter-" + sanitizeTag(tag) + "-26.2.jar";
+                if (!fileName.endsWith(".jar")) fileName = "meteor-orbiter-" + sanitizeTag(tag) + "-26.1.2.jar";
 
                 Path target = mods.resolve(fileName);
                 Path staging = mods.resolve(fileName + ".new");
